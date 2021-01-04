@@ -4,13 +4,13 @@ use libc::c_char;
 
 #[repr(C)]
 struct mrb_state_s;
-type mrb_state = *mut mrb_state_s;
+type mrb_state = *const mrb_state_s;
 
 #[link(name="mruby", kind="static")]
 extern {
     fn mrb_open() -> mrb_state;
-    fn mrb_load_string(mrb: mrb_state, code: *const c_char) -> ();
-    fn mrb_close(mrb: mrb_state) -> ();
+    fn mrb_load_string(mrb: mrb_state, code: *const c_char);
+    fn mrb_close(mrb: mrb_state);
 }
 
 fn main() {
